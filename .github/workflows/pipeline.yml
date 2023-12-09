@@ -44,8 +44,10 @@ jobs:
         with:
           node-version: 18.x
           cache: 'npm'
+      - name: Install program dependencies.
+        run: npm install
       - name: Install playwright module.
-        run: npx @playwright install
+        run: npx playwright install
       - name: Run UI tests.
         run: npm run test:ui
     needs: deploy
