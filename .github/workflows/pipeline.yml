@@ -9,7 +9,6 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout GitHub Repo code.
         uses: actions/checkout@v3
@@ -34,3 +33,18 @@ jobs:
           service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
           api-key: ${{ secrets.MY_RENDER_API_KEY }}
     needs: build-test
+
+  run-ui-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Repo code.
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - name: Install playwright module.
+        run: npx playwright install
+      - name: Run UI tests.
+        run: npm run test:ui
